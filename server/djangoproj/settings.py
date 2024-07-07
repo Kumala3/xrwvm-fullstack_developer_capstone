@@ -27,8 +27,13 @@ SECRET_KEY = "django-insecure-ccow$tz_=9%dxu4(0%^(z%nx32#s@(zt9$ih@)5l54yny)wm-0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost",]
-CSRF_TRUSTED_ORIGINS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "https://smokejrhd-8000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://smokejrhd-8000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai"
+]
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [],

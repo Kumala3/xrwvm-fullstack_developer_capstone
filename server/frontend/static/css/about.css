@@ -1,0 +1,140 @@
+/* about.css */
+
+/* Body styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar styling */
+.navbar {
+  background-color: #20c997;
+  height: 70px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar h2 {
+  color: white;
+  margin: 0;
+  padding: 15px;
+}
+
+.nav-link {
+  font-size: 18px;
+  color: white !important;
+  margin: 0 10px;
+}
+
+.nav-link.active {
+  font-weight: bold;
+}
+
+/* Card container styling */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.card {
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  overflow: hidden;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.card-body {
+  padding: 20px;
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+}
+
+.card .title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+.card .card-text {
+  font-size: 16px;
+  color: #666;
+}
+
+.card .email {
+  font-size: 14px;
+  color: #999;
+}
+
+.banner {
+  background-color: #20c997;
+  color: white;
+  padding: 50px 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.banner h1 {
+  margin: 0;
+  font-size: 36px;
+}
+
+.banner p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+/* Flex container for team members */
+.team {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    height: auto;
+  }
+
+  .navbar h2 {
+    padding: 10px;
+    font-size: 20px;
+  }
+
+  .navbar .nav-link {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+
+  .banner h1 {
+    font-size: 28px;
+  }
+
+  .banner p {
+    font-size: 16px;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .team {
+    flex-direction: column;
+    align-items: center;
+  }
+}
