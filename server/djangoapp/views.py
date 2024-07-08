@@ -8,6 +8,7 @@ import logging
 import json
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
+from .restapis import analyze_review_sentiments, get_request
 
 from .models import CarMake, CarModel
 
@@ -99,8 +100,15 @@ def registration(request: HttpRequest):
 
 # # Update the `get_dealerships` view to render the index page with
 # a list of dealerships
-def get_dealerships(request: HttpRequest):
-    pass
+def get_dealerships(request: HttpRequest, state="All"):
+    if state == "All":
+        endpoint = "/fetchDealers"
+    else:
+        endpoint = f"/fetchDealers/{state}"
+    dealerships = get_request(endpoint)
+    if dealerships.status_code == 200:
+        dealerships = dealerships.json()
+    return JsonResponse({"status": 200, "dealers": dealerships})
 
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
