@@ -1,6 +1,6 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<html lang="en" >
 <head>
     <title>Contact Us</title>
     <link rel="stylesheet" type="text/css" href="/static/css/contact.css">
@@ -10,6 +10,41 @@
 
 <body>
     {% include "components/Header.html" %}
+    <div class="contact-container">
+        <div class="contact-banner">
+            <h1>Contact Us</h1>
+            <p>Have any questions? We're here to help. Reach out to us through any of the methods below and we'll get
+                back to you as soon as possible.</p>
+        </div>
+        <div class="contact-info">
+            <div class="contact-details">
+                <h2>Our Office</h2>
+                <p>Best Cars Dealership</p>
+                <p>1234 Dealership Drive</p>
+                <p>Auto City, AC 56789</p>
+                <p>Phone: (123) 456-7890</p>
+                <p>Email: support@bestcars.com</p>
+            </div>
+            <div class="contact-form">
+                <h2>Get in Touch</h2>
+                <form action="#" method="POST">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" name="phone" required>
+
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
