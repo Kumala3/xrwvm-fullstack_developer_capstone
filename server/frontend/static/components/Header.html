@@ -1,0 +1,34 @@
+<head>
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/bootstrap.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
+        <div class="container-fluid">
+            <h2 style="padding-right: 5%;">Dealerships</h2>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_path == 'home' %}active{% endif %}" style="font-size: larger;" aria-current="page" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_path == 'about' %}active{% endif %}" style="font-size: larger;" href="{% url 'about' %}">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_path == 'contact' %}active{% endif %}" style="font-size: larger;" href="{% url 'contact' %}">Contact Us</a>
+                    </li>
+                </ul>
+                <span class="navbar-text">
+                    <div class="loginlink" id="loginlogout">
+                    </div>
+                </span>
+            </div>
+        </div>
+    </nav>
+
+</body>
