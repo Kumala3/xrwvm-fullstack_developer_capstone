@@ -114,12 +114,9 @@ def get_dealer_reviews(request: HttpRequest, dealer_id: int):
     if dealer_id:
         endpoint = f"/fetchReviews/dealer/{dealer_id}"
         reviews = get_request(endpoint)
-        print(reviews)
-        sentiments = []
-        for review in reviews:
-            sentiments.append(analyze_review_sentiments(review.get("review", "")))
+        sentiments = [analyze_review_sentiments(review.get("review", "")) for review in reviews]
         print(sentiments)
-        return JsonResponse({"status": 200, "reviews": reviews})
+        return JsonResponse({"status": 200, "reviews": reviews, "sentiments": sentiments})
     else:
         return JsonResponse({"error": "Bad request"}, status=400)
 
