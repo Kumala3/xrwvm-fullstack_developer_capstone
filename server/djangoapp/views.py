@@ -26,16 +26,15 @@ def login_user(request: HttpRequest):
         return JsonResponse({"error": "POST request required."}, status=400)
     # Get username and password from request.POST dictionary
     data = json.loads(request.body)
-    username = data["userName"]
-    password = data["password"]
+    username = data.get("userName")
+    password = data.get("password")
     # Try to check if provide credential can be authenticated
     user = authenticate(username=username, password=password)
-    print(user)
     if user is not None:
         # If user is valid, call login method to login current user
         login(request, user)
         data = {"userName": username, "status": "Authenticated"}
-        print(JsonResponse(data), status=200)
+        return JsonResponse(data)
     return JsonResponse(
         {"error": "We're having issue right now, contact our dev team"}, status=400
     )
@@ -53,11 +52,11 @@ def logout_request(request: HttpRequest):
 def registration(request: HttpRequest):
     if request.method == "POST":
         data = json.loads(request.body)
-        username = data["userName"]
-        password = data["password"]
-        firstname = data["firstName"]
-        lastname = data["lastName"]
-        email = data["email"]
+        username = data.get("userName")
+        password = data.get("password")
+        firstname = data.get("firstName")
+        lastname = data.get("lastName")
+        email = data.get("email")
 
         if not username or not password or not firstname or not lastname or not email:
             return JsonResponse({"error": "All parameters are required"}, status=400)
@@ -66,19 +65,22 @@ def registration(request: HttpRequest):
 
         user = User.objects.create(
             username=username,
-            password=password,
             first_name=firstname,
             last_name=lastname,
             email=email,
         )
-        print(user)
-        login(request, user)
-        data = {
-            "userName": username,
-            "message": "User registered successfully",
-            "status": "Authenticated",
-        }
-        return JsonResponse(data, status=201)
+        user.set_password(password)
+        user.save()
+        if user:
+            login(request, user)
+            data = {
+                "userName": username,
+                "message": "User registered successfully",
+                "status": "Authenticated",
+            }
+            return JsonResponse(data, status=201)
+        else:
+            JsonResponse({"error": f"Cannot register user: {username}"}, status=400)
     return JsonResponse(
         {"error": "This endpoint supports only POST requests"}, status=405
     )
