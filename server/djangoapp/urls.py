@@ -9,6 +9,7 @@ from .views import (
     get_dealerships,
     get_dealer_details,
     get_dealer_reviews,
+    get_reviews,
     add_review,
 )
 
@@ -24,6 +25,7 @@ urlpatterns = [
         view=get_dealer_details,
         name="dealer_details",
     ),
+    path("get_reviews", view=get_reviews, name="reviews"),
     path(
         "get_reviews/<int:dealer_id>",
         view=get_dealer_reviews,

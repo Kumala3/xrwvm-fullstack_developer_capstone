@@ -124,6 +124,11 @@ def get_dealer_reviews(request: HttpRequest, dealer_id: int):
         return JsonResponse({"error": "Bad request"}, status=400)
 
 
+def get_reviews(request: HttpRequest):
+    reviews = get_request("/fetchReviews")
+    return JsonResponse({"status": 200, "reviews": reviews})
+
+
 # Create a `get_dealer_details` view to render the dealer details
 def get_dealer_details(request: HttpRequest, dealer_id: int):
     if dealer_id:
