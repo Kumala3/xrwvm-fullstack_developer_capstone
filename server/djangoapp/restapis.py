@@ -16,14 +16,11 @@ def get_request(endpoint: str, **kwargs):
         params = "&".join([f"{key}={value}" for key, value in kwargs.items()])
 
     request_url = f"{backend_url}{endpoint}?{params}"
-    # if params:
-    #     request_url = request_url.rstrip("?")
-
     print(f"GET request from {request_url} ")
     try:
         # Call get method of requests library with URL and parameters
         response = requests.get(request_url)
-        return response
+        return response.json()
     except Exception:
         print("Network exception occurred")  # If any error occurs
 

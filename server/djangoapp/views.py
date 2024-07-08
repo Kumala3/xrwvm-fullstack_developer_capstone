@@ -106,21 +106,29 @@ def get_dealerships(request: HttpRequest, state="All"):
     else:
         endpoint = f"/fetchDealers/{state}"
     dealerships = get_request(endpoint)
-    if dealerships.status_code == 200:
-        dealerships = dealerships.json()
     return JsonResponse({"status": 200, "dealers": dealerships})
 
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
 def get_dealer_reviews(request: HttpRequest, dealer_id: int):
-    pass
+    if dealer_id:
+        endpoint = f"/fetchReviews/dealer/{dealer_id}"
+        reviews = get_request(endpoint)
+        return JsonResponse({"status": 200, "reviews": reviews})
+    else:
+        return JsonResponse({"error": "Bad request"}, status=400)
 
 
 # Create a `get_dealer_details` view to render the dealer details
 def get_dealer_details(request: HttpRequest, dealer_id: int):
-    pass
+    if dealer_id:
+        endpoint = f"/fetchDealer/{str(dealer_id)}"
+        dealer = get_request(endpoint)
+        return JsonResponse({"status": 200, "dealer": dealer})
+    else:
+        return JsonResponse({"error": "Bad request"}, status=400)
 
 
-# Create a `add_review` view to submit a review
+# Create a DSADS`add_review` view to submit a review
 def add_review(request: HttpRequest):
     pass
