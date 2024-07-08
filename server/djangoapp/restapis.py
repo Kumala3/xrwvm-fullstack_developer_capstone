@@ -25,7 +25,7 @@ def get_request(endpoint: str, **kwargs):
         print("Network exception occurred")  # If any error occurs
 
 
-def analyze_review_sentiments(text: str):
+def analyze_review_sentiments(text: str) -> str:
     request_url = f"{sentiment_analyzer_url}analyze/{text}"
 
     try:
