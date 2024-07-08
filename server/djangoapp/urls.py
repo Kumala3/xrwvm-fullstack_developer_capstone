@@ -1,17 +1,15 @@
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import login_user, logout_request, registration, get_dealerships
+from .views import login_user, logout_request, registration, get_dealerships, get_cars
 
-app_name = 'djangoapp'
+app_name = "djangoapp"
 urlpatterns = [
-    path('login', view=login_user, name='login'),
-    path('logout', view=logout_request, name='logout'),
-    path('register', view=registration, name='register'),
-    path('dealerships/', view=get_dealerships, name='get_dealerships'),
-
+    path("login", view=login_user, name="login"),
+    path("logout", view=logout_request, name="logout"),
+    path("register", view=registration, name="register"),
+    path("dealerships/", view=get_dealerships, name="get_dealerships"),
+    path("get_cars/", view=get_cars, name="get_cars"),
     # path for dealer reviews view
-
     # path for add a review view
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
