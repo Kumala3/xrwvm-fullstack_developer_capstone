@@ -10,11 +10,28 @@
   <link rel="stylesheet" href="static/bootstrap.min.css">
   <script>
 
+
     const logout = async (e) => {
-      //Include the code for logout here.
+      let logout_url = window.location.href + "djangoapp/logout"
+
+      let response = await fetch(logout_url, {
+        method: "GET",
+      });
+
+      
+      const json = await response.json();
+      if (json) {
+        const username = sessionStorage.getItem('username');
+        sessionStorage.removeItem('username');
+        window.location.href = window.localStorage.origin;
+        window.location.reload();
+        alert(`Logging out from ${username} account`);
+      } else {
+        alert(`Error during logging out for ${username}. Please contact our support team.`);
+      }
     };
 
-    let checkSession = () => {
+    const checkSession = () => {
       let curr_user = sessionStorage.getItem("username");
 
       if (curr_user && curr_user !== "") {
