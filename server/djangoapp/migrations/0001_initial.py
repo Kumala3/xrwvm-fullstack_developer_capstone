@@ -27,10 +27,9 @@ class Migration(migrations.Migration):
             name='CarModel',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('dealer_id', models.IntegerField()),
                 ('name', models.CharField(max_length=130)),
                 ('type', models.CharField(choices=[('SEDAN', 'Sedan'), ('SUV', 'SUV'), ('WAGON', 'Wagon'), ('SPORTS', 'Sports'), ('COUPE', 'Coupe'), ('CONVERTIBLE', 'Convertible'), ('SUPERCAR', 'Supercar'), ('HATCHBACK', 'Hatchback'), ('MINIVAN', 'Minivan'), ('PICKUP', 'Pickup'), ('TRUCK', 'Truck'), ('VAN', 'Van')], default='SUV', max_length=15)),
-                ('year', models.DateField(default=2023, validators=[django.core.validators.MinValueValidator(2015), django.core.validators.MaxValueValidator(2023)])),
+                ('year', models.IntegerField(default=2023, validators=[django.core.validators.MinValueValidator(2015), django.core.validators.MaxValueValidator(2023)])),
                 ('car_make', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='models', to='djangoapp.carmake')),
             ],
         ),
