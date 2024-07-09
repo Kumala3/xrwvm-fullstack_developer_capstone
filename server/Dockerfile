@@ -1,20 +1,25 @@
 FROM python:3.12.0-slim-bookworm
 
 ENV PYTHONBUFFERED 1
-ENV PYTHONWRITEBYCODE 1
+ENV PYTHONWRITEBYTECODE 1
 
-ENV APP=/APP
+ENV APP=/app
 
-WORKDIR /home/src/app
+# Change the workdir.
+WORKDIR $APP
 
-COPY requirements.txt /home/src/app/requirements.txt
+# Install the requirements
+COPY requirements.txt $APP
 
 RUN pip3 install -r requirements.txt
 
-COPY . /home/src/app/
+# Copy the rest of the files
+COPY . $APP
 
-RUN chmod +x /home/src/app/entrypoint.sh
+EXPOSE 8000
 
-ENTRYPOINT [ "/bin/bash", "/home/src/app/entrypoint.sh" ]
+RUN chmod +x /app/entrypoint.sh
 
-CMD ["gunicorn", "--bind" ":8000", "--workers", "3", "djangoproj.wsgi"]
+ENTRYPOINT ["/bin/bash","/app/entrypoint.sh"]
+
+CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "djangoproj.wsgi"]
