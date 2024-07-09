@@ -128,7 +128,7 @@ def get_reviews(request: HttpRequest):
 # Create a `get_dealer_details` view to render the dealer details
 def get_dealer_details(request: HttpRequest, dealer_id: int):
     if dealer_id:
-        endpoint = f"/fetchDealer/{str(dealer_id)}"
+        endpoint = f"/fetchDealer/{dealer_id}"
         dealer = get_request(endpoint)
         return JsonResponse({"status": 200, "dealer": dealer})
     else:
