@@ -8,7 +8,7 @@ import logging
 import json
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
-from .restapis import analyze_review_sentiments, get_request
+from .restapis import analyze_review_sentiments, get_request, post_review
 
 from .models import CarMake, CarModel
 
@@ -115,7 +115,6 @@ def get_dealer_reviews(request: HttpRequest, dealer_id: int):
         endpoint = f"/fetchReviews/dealer/{dealer_id}"
         reviews = get_request(endpoint)
         sentiments = [analyze_review_sentiments(review.get("review", "")) for review in reviews]
-        print(sentiments)
         return JsonResponse({"status": 200, "reviews": reviews, "sentiments": sentiments})
     else:
         return JsonResponse({"error": "Bad request"}, status=400)
@@ -138,4 +137,19 @@ def get_dealer_details(request: HttpRequest, dealer_id: int):
 
 # Create a DSADS`add_review` view to submit a review
 def add_review(request: HttpRequest):
-    pass
+    user = request.user.is_authenticated
+
+    if user:
+        try: 
+            data = json.loads(request.body)
+        except Exception:
+            return JsonResponse({"error": "Invalid JSON body"}, status=400)
+        try:
+            response = post_review(data)
+            print(response)
+            return JsonResponse({"status": 200, "message": "Feedback will appear in reviews soon"})
+        except Exception:
+            return JsonResponse({"status": 400, "error": "Error during posting review"})
+    else:
+        return JsonResponse({"error": "Only authorized users can leave a review"}, status=401)
+
