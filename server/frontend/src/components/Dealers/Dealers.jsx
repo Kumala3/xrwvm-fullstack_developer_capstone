@@ -6,19 +6,15 @@ import review_icon from '../assets/reviewicon.png';
 
 const Dealers = () => {
   const [dealersList, setDealersList] = useState([]);
-//   let [state, setState] = useState("")
-  let [states, setStates] = useState([]);
+  const [states, setStates] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [originalDealers, setOriginalDealers] = useState([]);
 
-  // let root_url = window.location.origin
-  let dealer_url = '/djangoapp/dealers';
-
-  let dealer_url_by_state = '/djangoapp/dealers/';
+  const dealer_url = '/djangoapp/dealers';
+  const dealer_url_by_state = '/djangoapp/dealers/';
 
   const filterDealers = async (state) => {
-    dealer_url_by_state = dealer_url_by_state + state;
-    const res = await fetch(dealer_url_by_state, {
+    const res = await fetch(dealer_url_by_state + state, {
       method: 'GET',
     });
     const retobj = await res.json();
@@ -39,7 +35,7 @@ const Dealers = () => {
 
   const handleLostFocus = () => {
     if (!searchQuery) {
-      setDealersList([]);
+      setDealersList(originalDealers);
     }
   };
 
@@ -60,68 +56,62 @@ const Dealers = () => {
       setOriginalDealers(all_dealers);
     }
   };
+
   useEffect(() => {
     get_dealers();
   }, []);
 
-  let isLoggedIn = sessionStorage.getItem('username') != null ? true : false;
+  const isLoggedIn = sessionStorage.getItem('username') != null;
+
   return (
     <div>
       <Header />
       <table className="table">
-        <tr>
-          <th>ID</th>
-          <th>Dealer Name</th>
-          <th>City</th>
-          <th>Address</th>
-          <th>Zip</th>
-          <th>
-            <select
-              name="state"
-              id="state"
-              onChange={(e) => filterDealers(e.target.value)}>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Dealer Name</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Zip</th>
+            <th>
               <input
                 placeholder="Search states..."
                 type="text"
                 onChange={handleInputChange}
                 onBlur={handleLostFocus}
-                value={searchQuery}>
-                All States
-              </input>
-              {states.map((state) => (
-                <option value={state}>{state}</option>
-              ))}
-            </select>
-          </th>
-          {isLoggedIn ? <th>Review Dealer</th> : <></>}
-        </tr>
-        {dealersList.map((dealer) => (
-          <tr>
-            <td>{dealer['id']}</td>
-            <td>
-              <a href={'/dealer/' + dealer['id']}>{dealer['full_name']}</a>
-            </td>
-            <td>{dealer['city']}</td>
-            <td>{dealer['address']}</td>
-            <td>{dealer['zip']}</td>
-            <td>{dealer['state']}</td>
-            {isLoggedIn ? (
-              <td>
-                <a href={`/postreview/${dealer['id']}`}>
-                  <img
-                    src={review_icon}
-                    className="review_icon"
-                    alt="Post Review"
-                  />
-                </a>
-              </td>
-            ) : (
-              <></>
-            )}
+                value={searchQuery}
+              />
+            </th>
+            {isLoggedIn && <th>Review Dealer</th>}
           </tr>
-        ))}
+        </thead>
+        <tbody>
+          {dealersList.map((dealer) => (
+            <tr key={dealer.id}>
+              <td>{dealer.id}</td>
+              <td>
+                <a href={'/dealer/' + dealer.id}>{dealer.full_name}</a>
+              </td>
+              <td>{dealer.city}</td>
+              <td>{dealer.address}</td>
+              <td>{dealer.zip}</td>
+              <td>{dealer.state}</td>
+              {isLoggedIn && (
+                <td>
+                  <a href={`/postreview/${dealer.id}`}>
+                    <img
+                      src={review_icon}
+                      className="review_icon"
+                      alt="Post Review"
+                    />
+                  </a>
+                </td>
+              )}
+            </tr>
+          ))}
+        </tbody>
       </table>
-      ;
     </div>
   );
 };
