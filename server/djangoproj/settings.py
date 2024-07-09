@@ -29,9 +29,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
+    "localhost",
     "https://smokejrhd-8000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai",
 ]
 CSRF_TRUSTED_ORIGINS = [
+    "https://localhost:8000",
     "https://smokejrhd-8000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai"
 ]
 
